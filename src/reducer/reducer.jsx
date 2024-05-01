@@ -1,5 +1,5 @@
 import actionTypes from "./actionTypes";
-
+import { Status } from "../constant";
 
 
 export function reducer(state,action){
@@ -38,11 +38,25 @@ export function reducer(state,action){
       }
     }
 
+    case actionTypes.PROMOTION_OPEN : {
+      return {
+        ...state,
+        status : Status.promoting,
+        promotionSquare : {...action.payload},
+      }
+    }
+
+    case actionTypes.PROMOTION_CLOSE : {
+      return {
+        ...state,
+          status : Status.ongoing,
+          promotionSquare : null,
+      }
+    }
+
     default : 
       return state
       
   }
-
-
 
 }

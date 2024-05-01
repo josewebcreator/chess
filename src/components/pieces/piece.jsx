@@ -21,7 +21,13 @@ export default function Piece ({rank,file,piece}){
     },0)
 
     if(turn === piece[0]){
-      const candidateMoves = arbiter.getRegularMoves({position : currentPosition, piece, rank, file});
+      const candidateMoves = arbiter.getValidMoves({
+        position : currentPosition,
+        prevPosition : position[position.length-2],
+        piece,
+        rank,
+        file
+      });
       dispatch(generateCandidateMoves({candidateMoves}))
     }
 

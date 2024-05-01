@@ -5,6 +5,7 @@ import Ranks from './bits/ranks';
 import Files from './bits/files';
 import Pieces from '../pieces/pieces';
 import { useAppContext } from '../../contexts/context';
+import Popup from '../popup/popup';
 
 
 export default function Board(){
@@ -48,6 +49,7 @@ export default function Board(){
         
       </div>
       <Pieces/>
+      <Popup/>
       <Files files = {files}/>
     </div>
   )
