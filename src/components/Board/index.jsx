@@ -6,6 +6,8 @@ import Files from './bits/files';
 import Pieces from '../pieces/pieces';
 import { useAppContext } from '../../contexts/context';
 import Popup from '../popup/popup';
+import arbiter from '../../arbiter/arbiter';
+import { getKingPosition } from '../../arbiter/getMoves';
 
 
 export default function Board(){
@@ -18,6 +20,18 @@ export default function Board(){
 
   const position = appState.position[appState.position.length - 1]
 
+  const checkTile = (() => {
+    const isInCheck =  (arbiter.isPlayerInCheck({
+      positionAfterMove : position,
+      player : appState.turn
+    }))
+
+    if (isInCheck)
+      return getKingPosition (position, appState.turn)
+
+    return null
+  })()
+
   const getClassName = (i,j) => {
     let c = 'tile'
     c+= (i+j)%2 === 0 ? ' tile--dark ' : ' tile--light '
@@ -26,6 +40,10 @@ export default function Board(){
         c+= ' attacking'
       else 
         c+= ' highlight'
+    }
+
+    if (checkTile && checkTile[0] === i && checkTile[1] === j) {
+      c+= ' checked'
     }
 
     return c
